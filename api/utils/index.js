@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const creaToken = (usuario, tiempo, periodo) => {
+    console.log(usuario)
     const payload = {
         id: usuario.ui,
         email: usuario.email,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect,useRef } from 'react';
 import {  useNavigate, Outlet} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
-import Header from "../containers/header";
+import Header from "../components/header";
 import Footer from "../components/footer";
 
 const LayoutPrivate = (props) => {

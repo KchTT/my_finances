@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser')
 const corsOptions = require('./config/corsOptions')
 const { logger } = require('./middleware/logEvents')
 const errorHandler = require('./middleware/errorHandler')
-const { verifyJWT, verifyBelieverJWT } = require('./middleware/verifyJWT')
+const { verifyJWT } = require('./middleware/verifyJWT')
 const credentials = require('./middleware/credentials')
 
 require('dotenv').config()
@@ -27,8 +27,12 @@ app.use(cookieParser());
 app.use(helmet())
 app.use(morgan('tiny'))
 
+const version = "v1"
+
 app.use('/', express.static(path.join(__dirname, '/public')))
-app.use('/api/v1/auth', require('./routes/auth'));
+app.use(`/api/${version}/auth`, require('./routes/auth'))
+app.use(`/api/${version}/transactions`,verifyJWT, require('./routes/transactions'))
+app.use(`/api/${version}/categories`,verifyJWT, require('./routes/categories'))
 
 app.all('*', (req, res) => {
     res.status(404);
@@ -40,7 +44,9 @@ app.all('*', (req, res) => {
         res.type('txt').send("404 Not Found");
     }
 });
+
 app.use(errorHandler);
+
 const httpServer = http.createServer(app)
 httpServer.listen(HttpPort, () => {
     console.log(`Listen http port > ${HttpPort} `)

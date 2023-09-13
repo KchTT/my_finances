@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
 import LayoutPublic from "./layout_public";
 import LayoutPrivate from "./layout_private";
 
@@ -9,8 +8,7 @@ import SignUp from "../containers/signup";
 import Dashboard from '../containers/dashboard';
 
 function App() {
-
-	return <BrowserRouter >
+	return <BrowserRouter>
 		<Routes>
 			<Route path="/" element={<LayoutPublic />}>
 				<Route index element={<SignIn />} />
