@@ -28,7 +28,7 @@ app.use(helmet())
 app.use(morgan('tiny'))
 
 app.use('/', express.static(path.join(__dirname, '/public')))
-app.use('/auth', require('./routes/auth'));
+app.use('/api/v1/auth', require('./routes/auth'));
 
 app.all('*', (req, res) => {
     res.status(404);
@@ -45,3 +45,5 @@ const httpServer = http.createServer(app)
 httpServer.listen(HttpPort, () => {
     console.log(`Listen http port > ${HttpPort} `)
 })
+
+module.exports = app

@@ -37,58 +37,46 @@ const handleSignIn = async (req, res) => {
 
     try {
         const conn = await pool.getConnection();
-        const [rows, fields] = await conn.query(`SELECT * FROM users WHERE email='${user}'`);
+        const [rows, fields] = await conn.query(`SELECT * FROM users WHERE email='${email}'`);
 
-        if (rows.length < 1) {
-            res.json({ err: true, message: "NO EXISTE EL USUARIO" });
-            return;
-        }
-/*
-        if (rows.length > 0 && rows[0].active == 0) {
-            res.json({ err: true, message: "EL USUARIO NO ESTA ACTIVADO" });
-            return;
-        }
-*/
-        if (!rows || rows.length < 1) return res.sendStatus(401); //Unauthorized 
+        if (rows.length < 1) return res.status(401).json({ err: true, message: "User not exist" });
+
+        /*
+                if (rows.length > 0 && rows[0].active == 0) {
+                    res.json({ err: true, message: "EL USUARIO NO ESTA ACTIVADO" });
+                    return;
+                }
+                if (!rows || rows.length < 1) return res.sendStatus(401); //Unauthorized 
+        */
 
         // evaluate password 
         const match = await bcrypt.compare(pass, row[0].pass);
-        //const match = pass != rows[0].pass ? false : true;
-        if (!match) {
-            res.json({ err: true, message: "The password is incorrect" });
-            return;
-        }
+        if (!match) return res.status(401).json({ err: true, message: "The password is incorrect" });
 
-        if (match) {
+        let _user = {
+            ui: rows[0].id,
+            user: rows[0].email,
+            name: rows[0].name,
+            lastname: rows[0].lastname,
+        };
 
-            let _user = {
-                ui: rows[0].id,
-                user: rows[0].email,
-                name: rows[0].name,
-                lastname: rows[0].lastname,
-            };
-
-            const accessToken = creaToken(_user, 1, "days");
-            const refresh = await conn.query(`UPDATE users SET last_login='${moment().format("YYYY-MM-DD HH:mm:ss")}' WHERE user='${user}'`);
-            conn.release();
-            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
-            res.header("X-Auth-Token", token).json({
-                err: false,
-                message: "SE LOGUEO CORRECTAMENTE",
-                user:_user,
-                t: token
-            });
-            //res.json({ accessToken });
-        } else {
-            res.sendStatus(401);
-        }
+        const token = creaToken(_user, 1, "days");
+        const refresh = await conn.query(`UPDATE users SET last_login='${moment().format("YYYY-MM-DD HH:mm:ss")}' WHERE user='${user}'`);
+        conn.release();
+        res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.header("X-Auth-Token", token).json({
+            err: false,
+            message: "SE LOGUEO CORRECTAMENTE",
+            user: _user,
+            t: token
+        });
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
     }
 }
 
-module.exports = { 
+module.exports = {
     handleSignUp,
     handleSignIn
 };
