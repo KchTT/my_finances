@@ -16,7 +16,7 @@ const data = createSlice({
     setCategories(state, action) {
       return {
         ...state,
-        categories: action.payload.categories,
+        categories: action.payload,
       }
     },
     setMsj(state, action) {

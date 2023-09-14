@@ -27,7 +27,14 @@ const user = createSlice({
       return {
         ...state, 
         user: null,
-        autenticate:false
+        autenticate:false,
+        profile: null
+      }
+    },
+    setProfile(state, action) {
+      return {
+        ...state, 
+        profile: action.payload,
       }
     },
     sale(state, action) {
@@ -37,6 +44,7 @@ const user = createSlice({
         ...state, user: {
           token: '',
           autenticate: false,
+          profile: null,
         }
       }
     },
@@ -44,7 +52,7 @@ const user = createSlice({
   }
 })
 
-export const { signOut,setLogIn } = user.actions
+export const { signOut,setLogIn,setProfile } = user.actions
 
 export default user.reducer
 

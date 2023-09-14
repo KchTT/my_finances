@@ -19,10 +19,14 @@ const getTransactions = async (req, res) => {
   try {
     const conn = await pool.getConnection();
     let query_transactions = `SELECT 
-        transactions.*
+        t.*,
+        DATE_FORMAT(t.date,'%e/%b %H:%i') AS date_label,
+        c.name as category_name
         FROM  transactions t
+        LEFT JOIN categories c ON t.id_category=c.id
         WHERE t.id_user=${req.user.id} ${(arr_clausula.length > 0) ? " AND " + arr_clausula.join(" AND ") : ""}
-		    GROUP BY  t.date`;
+		    GROUP BY  t.id
+        ORDER BY t.date DESC`;
     const [rows, fields] = await conn.query(query_transactions);
     conn.release();
     res.json({ err: false, transactions: rows });
@@ -114,10 +118,33 @@ const delTransaction = async (req, res) => {
   }
 }
 
+const monthResume = async (req, res) => {
+  try {
+        const conn = await pool.getConnection();
+        let query_resume = `SELECT 
+        MONTH(t.date) AS month,
+        YEAR(t.date) AS year,
+        SUM(IF(t.operation > 0 ,1 , 0)) as income_q,
+        SUM(IF(t.operation < 0 ,1 , 0)) as expense_q, 
+        SUM(IF(t.operation > 0 ,t.amount,0)) as income, 
+        SUM(IF(t.operation < 0 ,t.amount,0)) as expenses,
+        DATE_FORMAT(date, '%Y%m') as code 
+        FROM transactions t  
+        GROUP BY code
+        ORDER BY t.date DESC`;
+    const [rows, fields] = await conn.query(query_resume);
+    conn.release();
+    res.json({ err: false, resume: rows });
+  } catch (err) {
+    console.log(err);
+    res.json({ err: true, message: err });
+  }
+}
+
 module.exports = {
   getTransactions,
   addTransaction,
   updateTransaction,
-  delTransaction
-
+  delTransaction,
+  monthResume
 };

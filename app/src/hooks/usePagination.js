@@ -1,37 +1,36 @@
 import { useEffect, useState } from 'react';
 
-const usePagination = (props) => {
+const usePagination = (_cantxpag) => {
    
-    const [data,setData] = useState([])
 	const [total, setTotal] = useState(0);
-    const [filtrado,setFiltrado] = useState([])
-    const [loading, setLoading] = useState(false)
-	const [cantxpag, setCantXPag] = useState(5);
+	const [cantxpag, setCantXPag] = useState(_cantxpag?_cantxpag:20);
     const [pag, setPag] = useState(0);
     const [paginas, setPaginas] = useState(0);
-    
+    const [desde_reg, setDesde] = useState(0);
+    const [hasta_reg, setHasta] = useState(cantxpag);
+
     useEffect(() => {
-        reset()
+        //reset()
     },[cantxpag]);
 
     useEffect(() => {
-        filtra(data)
-    },[pag,data]);
+        //reset()
+    },[cantxpag]);
 
-    const setDatos = (_data) =>{
+    useEffect(() => {
+       const ini = pag*cantxpag 
+       setDesde(ini)
+       setHasta(ini+cantxpag)
+    },[pag]);
+
+    const setDatos = (_total) =>{
         setPag(0)
-        setPaginas([...Array(Math.ceil(_data.length / cantxpag)).keys()])
-        setTotal(_data.length)
-        setData(_data)
+        setPaginas([...Array(Math.ceil(_total / cantxpag)).keys()])
+        setTotal(_total)
     }
 
     const reset = () =>{
         setPag(0)
-        setPaginas([...Array(Math.ceil(data.length / cantxpag)).keys()])
-    }
-
-    const filtra = (_data)=>{
-        setFiltrado((_data && data.length > 0)? _data.slice((pag * cantxpag), (pag + 1) * cantxpag) : [])
     }
 
     const mueve = (e)=>{
@@ -42,11 +41,11 @@ const usePagination = (props) => {
     }
   
     return [
-        data,
         total,
-        filtrado,
         paginas,
         pag,
+        desde_reg,
+        hasta_reg,
         setDatos,
         setCantXPag,
         setPag,

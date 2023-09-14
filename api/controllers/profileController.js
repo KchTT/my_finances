@@ -12,7 +12,7 @@ const getInitial = async (req, res) => {
 		    GROUP BY  status, name, operation`;
 
     const [rows_profile, fields_profile] = await conn.query(query_profile);
-    const [rows_categories, fields_categories] = await conn.query(query_transactions);
+    const [rows_categories, fields_categories] = await conn.query(query_categories);
     conn.release();
     res.json({ err: false,profile:rows_profile[0], categories:rows_categories  });
   } catch (err) {
@@ -24,7 +24,7 @@ const getInitial = async (req, res) => {
 const updateProfile = async (req, res) => {
   try {
     const conn = await pool.getConnection()
-    const query = `UPDATE profile SET lastname='${req.body.lastname}',name='${req.body.name}',month_limit=${req.body.month_limit} WHERE id=${req.user.id} `
+    const query = `UPDATE profile SET lastname='${req.body.lastname}',name='${req.body.name}',month_limit=${req.body.month_limit} WHERE id_user=${req.user.id} `
     const [rows, fields] = await conn.query(query)
     conn.release()
     res.json({

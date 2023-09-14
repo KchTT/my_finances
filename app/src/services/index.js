@@ -45,6 +45,16 @@ const deleteCategory = async (_id) => {
     return request
 };
 
+const getProfile = async () => {
+    let request =  await axiosPrivate.get(`/profile`);
+    return request
+};
+
+const updateProfile = async (_data) => {
+    let request = await axiosPrivate.put("/profile/"+_data.id, _data);
+    return request
+};
+
 export { 
     sendSignIn,
     sendSignUp,
@@ -52,5 +62,7 @@ export {
     sendCategory,
     deleteTransaction,
     deleteCategory,
-    getTransactions
+    getTransactions,
+    getProfile,
+    updateProfile
 };
