@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const transactionsController = require('../controllers/transactionsController')
 
-router.get('/:desde/:hasta/:id_categoria/:id', transactionsController.getTransactions)
+router.get('/:from/:to/:operation/:id_category/:id?', transactionsController.getTransactions)
 
 router.post('/', transactionsController.addTransaction)
 

@@ -33,6 +33,8 @@ app.use('/', express.static(path.join(__dirname, '/public')))
 app.use(`/api/${version}/auth`, require('./routes/auth'))
 app.use(`/api/${version}/transactions`,verifyJWT, require('./routes/transactions'))
 app.use(`/api/${version}/categories`,verifyJWT, require('./routes/categories'))
+app.use(`/api/${version}/profile`,verifyJWT, require('./routes/profile'))
+
 
 app.all('*', (req, res) => {
     res.status(404);

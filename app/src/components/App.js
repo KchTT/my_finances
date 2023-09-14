@@ -12,7 +12,7 @@ function App() {
 		<Routes>
 			<Route path="/" element={<LayoutPublic />}>
 				<Route index element={<SignIn />} />
-				<Route path="signin" element={<SignUp />} />
+				<Route path="sign_up" element={<SignUp />} />
 			</Route>
 
 			<Route path="/my_finances" element={<LayoutPrivate />}>

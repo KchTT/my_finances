@@ -12,7 +12,7 @@ const getTransactions = async (req, res) => {
       arr_clausula.push(` t.date<='${req.params.to} 23:59:59' `)
     }
   }
-
+  if (req.params.operation && parseInt(req.params.operation) != 0) arr_clausula.push(` t.operation=${req.params.operation} `)
   if (req.params.id_category && parseInt(req.params.id_category) > 0) arr_clausula.push(` t.id_category='${req.params.id_category}' `)
   if (req.params.id && parseInt(req.params.id) > 0) arr_clausula.push(` t.id='${req.params.id}' `)
 

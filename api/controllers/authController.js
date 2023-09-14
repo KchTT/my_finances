@@ -58,8 +58,8 @@ const handleSignIn = async (req, res) => {
 
         // evaluate password 
         console.log(pass, rows[0].pass)
-        //const match = await bcrypt.compare(pass, rows[0].pass);
-        //if (!match) return res.status(401).json({ err: true, message: "The password is incorrect" });
+        const match = await bcrypt.compare(pass, rows[0].pass);
+        if (!match) return res.status(401).json({ err: true, message: "The password is incorrect" });
 
         let _user = {
             ui: rows[0].id,

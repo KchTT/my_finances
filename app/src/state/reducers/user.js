@@ -3,10 +3,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
   user: null,
-  msj: {
-    content: '',
-    type: '',
-  },
   counter: 0,
   autenticate: false,
   profile: null
@@ -16,13 +12,13 @@ const user = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setMsj(state, action) {
+    setLogIn(state, action) {
+      localStorage.setItem("MFT", action.payload.t);
+      localStorage.setItem("isAuthenticate",true);
       return {
-        ...state,
-        msj: {
-          content: action.payload.content,
-          type: action.payload.type,
-        },
+        ...state, 
+        user: action.payload.user,
+        autenticate:true
       }
     },
     signOut(state, action) {
@@ -48,7 +44,7 @@ const user = createSlice({
   }
 })
 
-export const { setMsj,signOut } = user.actions
+export const { signOut,setLogIn } = user.actions
 
 export default user.reducer
 

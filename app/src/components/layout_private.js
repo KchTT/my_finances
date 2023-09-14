@@ -3,6 +3,7 @@ import {  useNavigate, Outlet} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Toast from "../components/toast_mod"
 
 const LayoutPrivate = (props) => {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ const LayoutPrivate = (props) => {
     const isMounted = useRef(false);
 
     useEffect(() => {
-       //console.log(usuario)
+       console.log(user)
     }, [])
 
     useEffect(() => {
@@ -32,13 +33,14 @@ const LayoutPrivate = (props) => {
     })
     
     return (
-        <>
+        <div className="flex flex-col min-h-screen">
+            <Toast/>
             <Header />
-            <div>
+            <div className="flex-grow">
                 <Outlet/>
             </div>
             <Footer />
-        </>
+        </div>
     )
 }
 
