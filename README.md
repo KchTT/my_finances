@@ -18,24 +18,36 @@ The Mysql database file is in the repository
 ## Enviroment Variables Files
 
 **/**
-> blockquote
+> 
 MYSQL_ROOT_PASSWORD=XXXXXX
+
 MYSQL_DATABASE=my_finances
+
 MYSQL_USER=kchtt
+
 MYSQL_PASSWORD=XXXXXX
+
 MYSQL_LOCAL_PORT=3333
+
 MYSQL_DOCKER_PORT=3306
+
 API_LOCAL_PORT=7900
+
 API_DOCKER_PORT=7820
+
 ACCESS_TOKEN_SECRET = XXXXXX
+
 SECRET_TOKEN = XXXXXX
+
 SECRET_NUM = XXXXXX
+
 APP_LOCAL_PORT=2985
+
 APP_DOCKER_PORT=7901
-> blockquote
+> 
 
 **/api**
-> blockquote
+> 
 STAT="dev"
 HTTP_PORT=7820
 HTTPS_PORT=2991
@@ -53,14 +65,14 @@ M_USER_DEV = XXXXXX
 M_DB_DEV = my_finances
 M_PASS_DEV = XXXXXX
 M_PORT_DEV = 3333
-> blockquote
+> 
 
 **/app_server**
-> blockquote
+> 
 VERSION=dev
 HTTP_PORT=2985
 HTTPS_PORT=2986
-> blockquote
+> 
 
 ## MYSQL Note
 
