@@ -146,4 +146,17 @@ describe('Transactions', () => {
         expect(res.body.err).toBeFalsy()
         expect(res.body).toHaveProperty('transaction')
     })
+
+    it('should reject the update because the properties are incomplete', async () => {
+        const res = await request(app)
+            .put('/api/v1/transactions/1')
+            .set('Authorization', 'Bearer '+token)
+            .send({
+                id_category:1,
+                description:"Test transaction",
+            })
+        expect(res.statusCode).toEqual(400)
+        expect(res.body).toHaveProperty('err')
+        expect(res.body).toHaveProperty('message')
+    })
 })
