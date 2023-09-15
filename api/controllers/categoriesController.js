@@ -13,14 +13,14 @@ const getCategories = async (req, res) => {
     res.json({ err: false, transactions: rows });
   } catch (err) {
     console.log(err);
-    res.json({ err: true, message: err });
+    res.status(400).json({ err: true, message: err });
   }
 }
 
 const addCategory = async (req, res) => {
+  // TO DO:VALIDATE IF NAME EXIST IN DATABASE AND REJECT IF EXIST
   try {
     const conn = await pool.getConnection()
-    // VALIDATE IF NAME EXIST IN DATABASE
     const query = `INSERT INTO categories 
           (operation,name ,status) 
           VALUES 
@@ -37,11 +37,12 @@ const addCategory = async (req, res) => {
     })
   } catch (err) {
     console.log(err)
-    res.json({ err: true, message: err })
+    res.status(400).json({ err: true, message: err })
   }
 }
 
 const updateCategory = async (req, res) => {
+  // TO DO:VALIDATE IF NAME EXIST IN DATABASE AND REJECT IF EXIST
   try {
     const conn = await pool.getConnection()
     // VALIDATE IF NAME EXIST IN DATABASE
@@ -58,11 +59,12 @@ const updateCategory = async (req, res) => {
     })
   } catch (err) {
     console.log(err)
-    res.json({ err: true, message: err })
+    res.status(400).json({ err: true, message: err })
   }
 }
 
 const delCategory = async (req, res) => {
+  // TO DO:VALIDATE IF CATEGORY IS USED AND REJECT IF IS USED
   try {
     const conn = await pool.getConnection()
     const query = `DELETE categories WHERE id=${req.params.id}`
@@ -71,9 +73,10 @@ const delCategory = async (req, res) => {
     res.json({ err: false, id: req.params.id })
   } catch (err) {
     console.log(err)
-    res.json({ err: true, message: err })
+    res.status(400).json({ err: true, message: err })
   }
 }
+
 
 module.exports = {
   getCategories,

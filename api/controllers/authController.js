@@ -32,9 +32,9 @@ const handleSignUp = async (req, res) => {
             conn.release();
             res.json({ err: false, message: "Your user is ready! You can login now..." });
         }
-    } catch (error) {
-        console.log(error)
-        res.json({ err: true, message: error.message });
+    } catch (err) {
+        console.log(err)
+        res.status(400).json({ err: true, message: err.message });
     }
 }
 
@@ -57,21 +57,19 @@ const handleSignIn = async (req, res) => {
         if (rows.length < 1) return res.status(401).json({ err: true, message: "User not exist" });
 
         // evaluate password 
-        console.log(pass, rows[0].pass)
         const match = await bcrypt.compare(pass, rows[0].pass);
         if (!match) return res.status(401).json({ err: true, message: "The password is incorrect" });
 
         let _user = {
-            ui: rows[0].id,
+            id: rows[0].id,
             email: rows[0].email,
             name: rows[0].name,
             lastname: rows[0].lastname,
         };
 
         const token = creaToken(_user, 1, "days");
-        const refresh = await conn.query(`UPDATE users SET last_login='${moment().format("YYYY-MM-DD HH:mm:ss")}' WHERE email='${email}'`);
         conn.release();
-        //res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
+
         res.header("X-Auth-Token", token).json({
             err: false,
             message: "Login Ok!",
@@ -80,7 +78,7 @@ const handleSignIn = async (req, res) => {
         });
     } catch (err) {
         console.log(err);
-        res.sendStatus(500);
+        res.status(400).json({ err: true, message: err.message });
     }
 }
 

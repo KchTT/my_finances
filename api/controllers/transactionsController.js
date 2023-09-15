@@ -32,7 +32,7 @@ const getTransactions = async (req, res) => {
     res.json({ err: false, transactions: rows });
   } catch (err) {
     console.log(err);
-    res.json({ err: true, message: err });
+    res.status(400).json({ err: true, message: err });
   }
 }
 
@@ -69,7 +69,7 @@ const addTransaction = async (req, res) => {
     })
   } catch (err) {
     console.log(err)
-    res.json({ err: true, message: err })
+    res.status(400).json({ err: true, message: err })
   }
 }
 
@@ -101,7 +101,7 @@ const updateTransaction = async (req, res) => {
     })
   } catch (err) {
     console.log(err)
-    res.json({ err: true, message: err })
+    res.status(400).json({ err: true, message: err })
   }
 }
 
@@ -114,7 +114,7 @@ const delTransaction = async (req, res) => {
     res.json({ err: false, transaction: req.params.id })
   } catch (err) {
     console.log(err)
-    res.json({ err: true, message: err })
+    res.status(400).json({ err: true, message: err })
   }
 }
 
@@ -137,7 +137,7 @@ const monthResume = async (req, res) => {
     res.json({ err: false, resume: rows });
   } catch (err) {
     console.log(err);
-    res.json({ err: true, message: err });
+    res.status(400).json({ err: true, message: err });
   }
 }
 

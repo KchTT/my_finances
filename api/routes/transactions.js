@@ -1,15 +1,16 @@
 const express = require('express')
 const router = express.Router()
-const transactionsController = require('../controllers/transactionsController')
 const validateTransaction = require('../middleware/validateTransaction')
+const { verifyJWT } = require('../middleware/verifyJWT')
+const transactionsController = require('../controllers/transactionsController')
 
-router.get('/month_resume', transactionsController.monthResume)
-router.get('/:from/:to/:operation/:id_category/:id?', transactionsController.getTransactions)
+router.get('/month_resume',verifyJWT, transactionsController.monthResume)
+router.get('/:from/:to/:operation/:id_category/:id?',verifyJWT, transactionsController.getTransactions)
 
-router.post('/',validateTransaction, transactionsController.addTransaction)
+router.post('/',verifyJWT,validateTransaction, transactionsController.addTransaction)
 
 router.route('/:id')
-  .put(validateTransaction,transactionsController.updateTransaction)
-  .delete(transactionsController.delTransaction)
+  .put(verifyJWT,validateTransaction,transactionsController.updateTransaction)
+  .delete(verifyJWT,transactionsController.delTransaction)
 
 module.exports = router;

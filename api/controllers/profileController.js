@@ -17,7 +17,7 @@ const getInitial = async (req, res) => {
     res.json({ err: false,profile:rows_profile[0], categories:rows_categories  });
   } catch (err) {
     console.log(err);
-    res.json({ err: true, message: err });
+    res.status(400).json({ err: true, message: err });
   }
 }
 
@@ -37,7 +37,7 @@ const updateProfile = async (req, res) => {
     })
   } catch (err) {
     console.log(err)
-    res.json({ err: true, message: err })
+    res.status(400).json({ err: true, message: err })
   }
 }
 

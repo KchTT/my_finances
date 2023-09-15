@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const profileController = require('../controllers/profileController')
 const validateProfile = require('../middleware/validateProfile')
+const { verifyJWT } = require('../middleware/verifyJWT')
 
-router.get('/', profileController.getInitial)
-router.put('/',validateProfile,profileController.updateProfile)
+const profileController = require('../controllers/profileController')
+
+router.get('/',verifyJWT, profileController.getInitial)
+router.put('/',verifyJWT,validateProfile,profileController.updateProfile)
 
 module.exports = router;

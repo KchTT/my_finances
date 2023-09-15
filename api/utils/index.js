@@ -6,7 +6,7 @@ require('dotenv').config();
 const creaToken = (user, tiempo, periodo) => {
     console.log(user)
     const payload = {
-        id: user.ui,
+        id: user.id,
         email: user.email,
         name: user.name,
         lastname: user.lastname,
