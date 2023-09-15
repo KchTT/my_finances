@@ -14,35 +14,15 @@ app.use(
 );
 
 app.use(morgan("tiny"));
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "dist")));
 
 app.get("*", function (req, res) {
-    res.sendFile(path.join(__dirname, "build", "index.html"));
+    res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
+const httpServer = http.createServer(app);
+const HttpPort = process.env.HTTP_PORT || 2985
 
-if (process.env.VERSION == 'production') {
-    const key = path.join(__dirname, '..', 'certs', 'airnizer-key.pen')
-    const cert = path.join(__dirname, '..', 'certs', 'airnizer-cert.pem')
-    const ca5 = path.join(__dirname, '..', 'certs', '473444_intermedio-sectigo.crt')
-
-    const HttpsPort = process.env.HTTP_PORT || 2986
-
-    const httpsServer = https.createServer({
-        key: fs.readFileSync(key),
-        cert: fs.readFileSync(cert),
-        ca: fs.readFileSync(ca5)
-    }, app)
-
-    httpsServer.listen(HttpsPort, () => {
-        console.log(`Web Escuchando en el puerto https > ${HttpsPort} `);
-    });
-
-} else {
-    const httpServer = http.createServer(app);
-    const HttpPort = process.env.HTTP_PORT || 2985
-
-    httpServer.listen(HttpPort, () => {
-        console.log(`Web Escuchando en el puerto http > ${HttpPort} `);
-    });
-} 
+httpServer.listen(HttpPort, () => {
+    console.log(`Web Escuchando en el puerto http > ${HttpPort} `);
+});
