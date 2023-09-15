@@ -83,5 +83,14 @@ SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 - Alert limits via email 
 - Add resume by Categories
 
+## Documentation
+
 - [Api Documentation](https://github.com/KchTT/my_finances/tree/main/api/documentation)
-- [Screens](https://github.com/KchTT/my_finances/tree/main/screens)
+
+## Screenshots
+
+- [Sign In](https://github.com/KchTT/my_finances/blob/main/screens/Signin.png)
+- [Sign Up](https://github.com/KchTT/my_finances/blob/main/screens/Signup.png)
+- [Dashboard](https://github.com/KchTT/my_finances/blob/main/screens/Dashboard.png)
+- [History](https://github.com/KchTT/my_finances/blob/main/screens/History.png)
+- [Profile](https://github.com/KchTT/my_finances/blob/main/screens/Profile.png)
