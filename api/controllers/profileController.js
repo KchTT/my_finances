@@ -28,7 +28,7 @@ const updateProfile = async (req, res) => {
     const [rows, fields] = await conn.query(query)
     conn.release()
     res.json({
-      err: false, category: {
+      err: false, profile: {
         id_user: req.params.id_user,
         lastname: req.body.lastname,
         name: req.body.name,

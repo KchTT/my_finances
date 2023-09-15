@@ -51,9 +51,19 @@ const getProfile = async () => {
 };
 
 const updateProfile = async (_data) => {
-    let request = await axiosPrivate.put("/profile/"+_data.id, _data);
+    let request = await axiosPrivate.put("/profile", _data);
     return request
 };
+
+const getMonthResume = async () => {
+    let request =  await axiosPrivate.get(`/transactions/month_resume`);
+    return request
+};
+
+const chkToken = async () => {
+    let request =  await axiosPrivate.post(`/auth/chk_token`);
+    return request
+}
 
 export { 
     sendSignIn,
@@ -64,5 +74,7 @@ export {
     deleteCategory,
     getTransactions,
     getProfile,
-    updateProfile
+    updateProfile,
+    getMonthResume,
+    chkToken
 };

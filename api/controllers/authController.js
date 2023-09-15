@@ -12,18 +12,18 @@ const handleSignUp = async (req, res) => {
         const { name, lastname, email, pass } = req.body
         const [rows_chk, fields_chk] = await conn.query(`SELECT * FROM users WHERE email='${email}'`);
 
-        
+
         if (!pass || pass == "") {
             conn.release();
-            res.status(400).json({ err:true, message: "Dont send your password" })
+            res.status(400).json({ err: true, message: "Dont send your password" })
             return
-        } else if(!email || email=="" || !validateEmailStructure(email)){
+        } else if (!email || email == "" || !validateEmailStructure(email)) {
             conn.release();
-            res.status(400).json({ err:true, message: "Dont send your email or its invalid" })
+            res.status(400).json({ err: true, message: "Dont send your email or its invalid" })
             return
         } else if (rows_chk.length > 0) {
             conn.release();
-            res.status(400).json({ err:true, message: "This user already exist" })
+            res.status(400).json({ err: true, message: "This user already exist" })
             return
         } else {
             //let pass_new = crypto.createHash('sha512').update(pass).digest('hex')
@@ -40,8 +40,8 @@ const handleSignUp = async (req, res) => {
 
 const handleSignIn = async (req, res) => {
     const { email, pass } = req.body
-    if (!email || email=="" || !pass || pass=="") return res.status(400).json({ 'message': 'Username and password are required.' });
-    if (email=="" || !validateEmailStructure(email)) return res.status(400).json({ 'message': 'Email is empty or invalid.' });
+    if (!email || email == "" || !pass || pass == "") return res.status(400).json({ 'message': 'Username and password are required.' });
+    if (email == "" || !validateEmailStructure(email)) return res.status(400).json({ 'message': 'Email is empty or invalid.' });
 
     try {
         const conn = await pool.getConnection();
@@ -84,6 +84,14 @@ const handleSignIn = async (req, res) => {
     }
 }
 
+const chkToken = async (req, res) => {
+    res.json({
+        err: false,
+        user: req.user,
+        message: "Valid Token",
+    });
+}
+
 const validateEmailStructure = (email) => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -91,5 +99,6 @@ const validateEmailStructure = (email) => {
 
 module.exports = {
     handleSignUp,
-    handleSignIn
+    handleSignIn,
+    chkToken
 };

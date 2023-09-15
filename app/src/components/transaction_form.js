@@ -1,10 +1,13 @@
 
 import { useState, useEffect } from "react";
-import DatePickerButton from "./datepicker_custom";
 import moment from "moment";
+import { useSelector } from "react-redux";
+import DatePickerButton from "./datepicker_custom";
 import { sendTransaction, deleteTransaction } from "../services";
 
 const TransactionForm = (props) => {
+    const data = useSelector((state) => state.data)
+
     const [sending, setSending] = useState(false)
     const [transaction, setTransaction] = useState({
         operation: -1,
@@ -128,11 +131,8 @@ const TransactionForm = (props) => {
                                     <div>
                                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
                                         <select id="id_category" name="id_category" onChange={handleChange} value={transaction.id_category} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                            <option value="">Electronics</option>
-                                            <option value="1">TV/Monitors</option>
-                                            <option value="2">PC</option>
-                                            <option value="3">Gaming/Console</option>
-                                            <option value="4">Phones</option>
+                                            <option value="">Select Category</option>
+                                            {data.categories.map(c =><option value={c.id} key={c.id}>{c.name}</option>)}
                                         </select>
                                     </div>
                                     <div className="">

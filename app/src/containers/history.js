@@ -1,14 +1,17 @@
 
 import { useState,useEffect } from 'react';
 import moment from "moment";
+import { useSelector } from 'react-redux';
 import useTotalize from "../hooks/useTotalize";
 import useTransactions from "../hooks/useTransactions";
 import TransactionsTable from "../components/transactions_table";
 import TransactionForm from "../components/transaction_form";
 import ResumeMod from "../components/resume_mod";
 import DatePickerButton from "../components/datepicker_custom";
+import MonthResumeMod from '../components/month_resume_mod';
 
 const History = (props) => {
+    const data = useSelector((state) => state.data)
     const [total, setData] = useTotalize();
     const [modalVisible, setModalVisible] = useState(false)
     const [
@@ -75,16 +78,14 @@ const History = (props) => {
                         </div>
 
                         <select id="id_category" name="id_category" onChange={(e) => setIdCategory(e.target.value)} value={id_category} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="">Electronics</option>
-                            <option value="1">TV/Monitors</option>
-                            <option value="2">PC</option>
-                            <option value="3">Gaming/Console</option>
-                            <option value="4">Phones</option>
+                            <option value="">Select Category</option>
+                            {data.categories.map(c =><option value={c.id} key={c.id}>{c.name}</option>)}
                         </select>
                     </div>
                 </div>
             </div>
         </section>
+
 
         {modalVisible &&
             <TransactionForm refresh={refresh} transaction={transaction} closeTransactionForm={closeTransactionForm} />
@@ -93,6 +94,8 @@ const History = (props) => {
         {transactions.length > 0 &&
             <TransactionsTable transactions={transactions} openTransactionForm={openTransactionForm} />
         }
+        
+        <MonthResumeMod/>
     </>
 }
 

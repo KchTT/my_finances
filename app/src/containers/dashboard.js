@@ -13,8 +13,16 @@ const Dashboard = (props) => {
     const [
         transactions,
         transaction,
+        from,
+        to,
+        id_category,
+        operation,
         refresh,
-        setTransaction
+        setTransaction,
+        setFrom,
+        setTo,
+        setIdCategory,
+        setOperation
     ] = useTransactions('dashboard')
 
     useEffect(() => {
@@ -41,8 +49,8 @@ const Dashboard = (props) => {
                 <div className="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
                     <div className="flex-row items-center justify-between p-4 space-y-3 sm:flex sm:space-y-0 sm:space-x-4">
                         <div>
-                            <h5 className="mr-3 font-semibold dark:text-white">History</h5>
-                            <p className="text-gray-500 dark:text-gray-400">Manage all your existing users or add a new one</p>
+                            <h5 className="mr-3 font-semibold dark:text-white">Dashboard</h5>
+                            <p className="text-gray-500 dark:text-gray-400">Your current month resume is here</p>
                         </div>
                         <button type="button"
                             onClick={() => openTransactionForm(null)}
