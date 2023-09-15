@@ -1,6 +1,7 @@
+// OBJECT PROPERY VALIDATION
 const validateCategory = (req, res, next) => {
-    if(req.body.operation ||
-        req.body.name ||
+    if(req.body.operation &&
+        req.body.name &&
         req.body.status){
             next()
     }else{

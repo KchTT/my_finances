@@ -1,3 +1,5 @@
+// EVENT LOG
+
 const moment = require('moment');
 const { v4: uuid } = require('uuid');
 

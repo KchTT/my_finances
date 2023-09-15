@@ -1,3 +1,4 @@
+// CHECK IF JWT IS VALID AND GET DATA FROM IT
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 

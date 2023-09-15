@@ -1,6 +1,7 @@
+// OBJECT PROPERY VALIDATION
 const validateProfile = (req, res, next) => {
-    if(req.body.lastname ||
-        req.body.name ||
+    if(req.body.lastname &&
+        req.body.name &&
         req.body.month_limit ){
             next()
     }else{
