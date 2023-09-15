@@ -3,14 +3,14 @@ const crypto = require('crypto')
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const creaToken = (usuario, tiempo, periodo) => {
-    console.log(usuario)
+const creaToken = (user, tiempo, periodo) => {
+    console.log(user)
     const payload = {
-        id: usuario.ui,
-        email: usuario.email,
-        name: usuario.name,
-        lastname: usuario.lastname,
-        sub: crypto.createHash("md5").update(usuario.email).digest("hex"),
+        id: user.ui,
+        email: user.email,
+        name: user.name,
+        lastname: user.lastname,
+        sub: crypto.createHash("md5").update(user.email).digest("hex"),
         iat: moment().unix(),
         exp: moment().add(tiempo, periodo).unix(),
     };
