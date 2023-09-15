@@ -62,6 +62,10 @@ HTTP_PORT=2985 \
 HTTPS_PORT=2986
 >
 
+## Notes
+
+I add a ABM of categories at the profile because i dont develop administration roles
+
 ## MYSQL Note
 
 SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY','')); 
@@ -77,6 +81,7 @@ SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 - Filter categories select using operation property on client depending the selection and status property on server
 - Add reset password via email
 - Alert limits via email 
+- Add resume by Categories
 
 - [Api Documentation](https://github.com/KchTT/my_finances/tree/main/api/documentation)
 - [Screens](https://github.com/KchTT/my_finances/tree/main/screens)

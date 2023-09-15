@@ -34,7 +34,7 @@ const MonthResumeMod = ()=>{
                     fontSize: '12px',
                     fontFamily: 'Helvetica, Arial, sans-serif',
                     fontWeight: 'bold',
-                colors: ['#FFFFFF','#FFFFFF']
+                    colors: ['#FFFFFF','#FFFFFF']
                 }
             }
         },
@@ -102,7 +102,7 @@ const MonthResumeMod = ()=>{
 
     return(
         <div className="relative px-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5 m-4">
-            <h1 className="text-white">Month Resume Mod</h1>
+            <h1 className="text-white">Monthly Resume</h1>
            {!loading &&
             <Chart
             options={chart_data.options}
